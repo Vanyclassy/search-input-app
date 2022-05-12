@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="search">
+    <input class="searchTerm" [(ngModel)]="searchText" type="text"
+      placeholder="Искать"
+    />
+  </div>
+
+  <div class="options">
+    <div *ngIf="(results$ | async) as results"><span class="result">Найдено: {{ results }}</span></div>
+    <div class="options__item">
+      <div *ngFor="let toggle of toggles">
+        <button class="options__button"
+          *ngIf="toggle.label"
+          [class.active]="toggle === activeToggle"
+          (click)="onClick(toggle)">
+          {{ toggle.label }}
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="scroll" [ngClass]="{scroll: visibileScroll}" (scroll)="onTableScroll($event)">
+    <table>
+      <thead>
+        <tr>
+          <th>Номер</th>
+          <th>Имя</th>
+          <th>Год рождения</th>
+          <th>Вес</th>
+          <th>Рост</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let character of charactersArray | searchFilter: searchText; index as i">
+          <td>{{ i + 1 }}</td>
+          <td>
+            {{ character.name }}
+          </td>
+          <td>
+            {{ character.birth_year }}
+          </td>
+          <td>
+            {{ character.mass }}
+          </td>
+          <td>
+            {{ character.height }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-container *ngIf="paginationState">
+    <div class="pagination">
+      <a 
+        class="pagination__item"
+        (click)="onPreviousPage()"
+        [class.disabled]="isDisabled"
+      >
+        Previous
+      </a>
+      <a class="pagination__item">
+        {{ currentPage }}
+      </a>
+      <a
+        class="pagination__item" 
+        (click)="onNextPage()"
+      >
+        Next
+      </a>
+    </div>  
+  </ng-container>
+
+
+
