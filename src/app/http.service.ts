@@ -9,7 +9,7 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
-  public get<T>(url: string): Observable<T> {
-    return this.http.get<T>(url)
+  public get<T>(url: string, params?: any): Observable<T> {
+    return this.http.get<T>(url, {params})
   }
 }

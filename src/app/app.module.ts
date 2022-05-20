@@ -4,14 +4,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CharactersComponent } from './characters/characters.component';
 import { HttpClientModule } from '@angular/common/http';
-import { SearchFilterPipe } from './search-filter.pipe';
 import { FormsModule } from '@angular/forms';
+import { SearchInputComponent } from './search-input/search-input.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CharactersComponent,
-    SearchFilterPipe
+    SearchInputComponent
   ],
   imports: [
     BrowserModule,

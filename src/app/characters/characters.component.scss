@@ -1,23 +1,9 @@
 .container {
     margin: 20px;
 }
-app-search-input {
-    width: 100%;
-}
-.search {
-    position: relative;
-    display: flex;
-    margin-bottom: 20px;
-}
 
-input {
-    width: 100%;
-    border: 2px solid #b891c0;
-    padding: 15px;
-    height: 20px;
-    border-radius: 5px;
-    outline: none;
-    box-sizing: border-box;   
+.search {
+    margin-bottom: 20px;
 }
 
 .pagination {

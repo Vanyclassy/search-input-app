@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, concatMap, map, Observable, switchMap, take, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpService } from './http.service';
 
@@ -23,10 +23,12 @@ export class CharacterService {
 
   constructor(private http: HttpService) { }
 
-  public getCharacter(pageNumber: number): Observable<any> {
-    return this.http.get<any>(`${this.url}?page=${pageNumber}`).pipe(
-      map(res => res.results)
-    )
+  public getSearchedCharacter(name: string = ''): Observable<any> {
+    return this.http.get<any>(`${this.url}/?search=${name}`)
+  }
+
+  public getCharacter(params: number | string): Observable<any> {
+    return this.http.get<any>(`${this.url}?page=${params}`)
   }
 
   public getData(): Observable<CharacterInterface> {

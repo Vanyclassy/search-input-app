@@ -1,12 +1,12 @@
 <div class="container">
   <div class="search">
-    <input class="searchTerm" [(ngModel)]="searchText" type="text"
-      placeholder="Искать"
-    />
+    <app-search-input (searchChange)="onSearchChange($event)"></app-search-input>
   </div>
 
   <div class="options">
-    <div *ngIf="(results$ | async) as results"><span class="result">Найдено: {{ results }}</span></div>
+    <div>
+      <span class="result">Найдено: {{ results }}</span>
+    </div>
     <div class="options__item">
       <div *ngFor="let toggle of toggles">
         <button class="options__button"
@@ -18,7 +18,11 @@
       </div>
     </div>
   </div>
-  <div class="scroll" [ngClass]="{scroll: visibileScroll}" (scroll)="onTableScroll($event)">
+  <div 
+    class="scroll" 
+    [ngClass]="{scroll: visibileScroll}" 
+    #table
+    >
     <table>
       <thead>
         <tr>
@@ -30,24 +34,30 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let character of charactersArray | searchFilter: searchText; index as i">
-          <td>{{ i + 1 }}</td>
-          <td>
-            {{ character.name }}
-          </td>
-          <td>
-            {{ character.birth_year }}
-          </td>
-          <td>
-            {{ character.mass }}
-          </td>
-          <td>
-            {{ character.height }}
-          </td>
-        </tr>
+        <ng-container *ngIf="charactersArray.length > 0; else notFound">
+          <tr *ngFor="let character of charactersArray; index as i">
+            <td>{{ i + 1 }}</td>
+            <td>
+              {{ character.name }}
+            </td>
+            <td>
+              {{ character.birth_year }}
+            </td>
+            <td>
+              {{ character.mass }}
+            </td>
+            <td>
+              {{ character.height }}
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>
+
+  <ng-template #notFound>
+    <div>Ничего не найдено</div>
+  </ng-template>
 
   <ng-container *ngIf="paginationState">
     <div class="pagination">
